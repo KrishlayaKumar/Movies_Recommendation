@@ -12,9 +12,8 @@ This is a ML project use for recommending movies based on the movie that you wil
 ## Data_collection:-
 For data we are using **[TMDB 5000 Movie Dataset](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata)**
 This dataset contain 2 CSV file
-1) credits
-2) movies
-   ##credits
+1) credits:-
+   
    Total Records: 4803
    Columns: 4
    Key Information:
@@ -26,7 +25,8 @@ This dataset contain 2 CSV file
    | `cast`     | JSON string listing cast members with roles and actor names            |
    | `crew`     | JSON string listing crew members like director, writer, producer, etc. |
 
-   ##movies
+2) movies:-
+   
    Total Records: 4803
    Columns: 20
    Key Information:
