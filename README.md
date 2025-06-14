@@ -218,4 +218,101 @@ code:-
    we will use **Flask**
 
 
-      
+# 🎬 Movie Recommendation System
+
+A Machine Learning-based movie recommender system that suggests similar movies based on the input movie provided by the user.
+
+---
+
+## 📌 Table of Contents
+- [Overview](#overview)
+- [Dataset](#dataset)
+- [Project Workflow](#project-workflow)
+  - [1. Data Collection](#1-data-collection)
+  - [2. Data Preprocessing](#2-data-preprocessing)
+  - [3. Vectorization](#3-vectorization)
+  - [4. Recommendation Engine](#4-recommendation-engine)
+  - [5. Frontend](#5-frontend)
+  - [6. Backend (Flask)](#6-backend-flask)
+- [How to Run](#how-to-run)
+- [Tech Stack](#tech-stack)
+- [Credits](#credits)
+
+---
+
+## 📖 Overview
+
+This project builds a content-based movie recommendation system using metadata such as genres, cast, crew, and keywords. When a user enters a movie title, the system recommends five similar movies based on their textual descriptions.
+
+---
+
+## 📂 Dataset
+
+The system uses the **[TMDB 5000 Movie Dataset](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata)** which contains two main CSV files:
+
+### 1. `tmdb_5000_credits.csv`
+
+| Column     | Description                                                            |
+|------------|------------------------------------------------------------------------|
+| `movie_id` | Unique movie ID (used to join with the movies dataset)                |
+| `title`    | Title of the movie                                                     |
+| `cast`     | JSON string listing actors and roles                                   |
+| `crew`     | JSON string listing directors, writers, and other crew members         |
+
+### 2. `tmdb_5000_movies.csv`
+
+| Column             | Description                                                   |
+|--------------------|---------------------------------------------------------------|
+| `id`, `title`      | Movie ID and title                                            |
+| `genres`           | List of genres (JSON format)                                  |
+| `keywords`         | Keywords associated with the movie (JSON format)              |
+| `overview`         | Plot summary                                                  |
+| `cast`, `crew`     | Enriched via the credits dataset                              |
+| `budget`, `revenue`, `runtime`, `popularity`, `vote_average`, etc. | Additional metadata |
+
+---
+
+## 🔄 Project Workflow
+
+### 1. Data Collection
+
+The raw data is merged on the `movie_id` field from both datasets, combining movie metadata and credits.
+
+---
+
+### 2. Data Preprocessing
+
+Preprocessing is key to extracting meaningful tags for comparison.
+
+#### ➤ Selected Features:
+- `genres`
+- `keywords`
+- `overview`
+- `cast` (top 4 actors)
+- `crew` (director only)
+
+#### ➤ Preprocessing Steps:
+- **Parse JSON columns** using Python’s `ast.literal_eval`.
+- **Extract useful tokens** from lists and keep only important names.
+- **Clean and normalize text**:
+  - Remove spaces between multi-word names.
+  - Convert everything to lowercase.
+  - Combine all selected fields into a single `tags` column.
+
+**Final Structure:**
+
+| id     | title     | tags                                                          |
+|--------|-----------|---------------------------------------------------------------|
+| 19995  | Avatar    | in the 22nd century a paraplegic marine ... jamescameron ...  |
+
+---
+
+### 3. Vectorization
+
+We use `CountVectorizer` to convert text tags into numerical vectors.
+
+```python
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer(max_features=5000, stop_words='english')
+vectors = cv.fit_transform(new['tags']).toarray()
+
