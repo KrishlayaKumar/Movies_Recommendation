@@ -216,9 +216,11 @@ code:-
        for i in movies_list:
            print(new.iloc[i[0]].title)
    ```
+
    Ex:- recommend('Avatar')
    
    output:- 
+   
       Aliens vs Predator: Requiem
       Aliens
       Independence Day
@@ -226,10 +228,12 @@ code:-
       Titan A.E.
 
  ## Frontend:-
-
-   we will use 2 things
-   **HTML**
-   **CSS**
-
+   We use basic **HTML + CSS** to build the user interface, which allows users to input a movie and view recommendations.
+   
 ## backend:-
-   we will use **Flask**
+   The backend is built with Flask, handling:
+   Loading models and data from **movies.pkl and similarity.pkl**
+   Processing user input and displaying recommendations
+
+
+## Screenshot:-
