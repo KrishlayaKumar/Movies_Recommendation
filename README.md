@@ -51,6 +51,7 @@ This dataset contain 2 CSV file
 ## Data_preprocessing
 **Data preprocessing is the process of cleaning, transforming, and organizing raw data into a format that can be efficiently used for analysis, machine learning, or data-driven decision-making.**
 A) now we have to choose which feature we have to use/which is more usefull for Movie Recommender
+
     1)genres 
     2)id 
     3)keywords 
